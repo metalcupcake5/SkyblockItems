@@ -39,42 +39,6 @@ public class PlayerListener implements Listener{
     }
 
     @EventHandler
-    public void itemSwitched(PlayerItemHeldEvent event){
-        Player player = event.getPlayer();
-        PlayerInventory inv = player.getInventory();
-        ItemStack heldItem = inv.getItem(event.getNewSlot());
-        if(heldItem == null){
-            if(player.hasPotionEffect(PotionEffectType.SPEED)){
-                player.removePotionEffect(PotionEffectType.SPEED);
-            }
-            return;
-        }
-        if(!heldItem.hasItemMeta()){
-            if(player.hasPotionEffect(PotionEffectType.SPEED)){
-                player.removePotionEffect(PotionEffectType.SPEED);
-            }
-            return;
-        }
-        ItemMeta meta = heldItem.getItemMeta();
-        if(!meta.hasDisplayName()){
-            if(player.hasPotionEffect(PotionEffectType.SPEED)){
-                player.removePotionEffect(PotionEffectType.SPEED);
-            }
-            return;
-        }
-        String name = meta.getDisplayName();
-        String check = ChatColor.GOLD+"Speedy Sword";
-        if(name.equalsIgnoreCase(check)){
-            PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, 10000000, 1, false, false);
-            player.addPotionEffect(speed);
-        }else{
-            if(player.hasPotionEffect(PotionEffectType.SPEED)){
-                player.removePotionEffect(PotionEffectType.SPEED);
-            }
-        }
-    }
-
-    @EventHandler
     public void playerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Action action = event.getAction();
@@ -105,7 +69,7 @@ public class PlayerListener implements Listener{
                 location.setYaw(player.getLocation().getYaw());
                 player.teleport(location);
                 setPlayerMana(player.getUniqueId(), mana-cost);
-                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Instant Transmission" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + Integer.toString(cost)+" mana)");
+                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Instant Transmission" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost+" mana)");
             }
             if (name.contains(ChatColor.GOLD + "Yeti Sword")) {
                 Integer cost = yeti_sword_mana;
@@ -151,7 +115,7 @@ public class PlayerListener implements Listener{
                     block.setVelocity(calculateVelocityBlock(origin.toVector(), endPos.toVector(), 3));
                 });
                 setPlayerMana(player.getUniqueId(), mana-cost);
-                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Terrain Toss" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + Integer.toString(cost)+" mana)");
+                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Terrain Toss" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost+" mana)");
                 cooldownManager.setCooldown(player.getUniqueId()+"-YETI", System.currentTimeMillis());
             }else if (name.contains(ChatColor.DARK_PURPLE + "Leaping Sword")){
                 Integer cost = leaping_sword_mana;
@@ -178,7 +142,7 @@ public class PlayerListener implements Listener{
                 e.setPassenger(player);
                 e.setVelocity(calculateVelocityBlock(startBlock.toVector(), target.toVector(), 5));
                 setPlayerMana(player.getUniqueId(), mana-cost);
-                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Leap" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + Integer.toString(cost)+" mana)");
+                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Leap" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost+" mana)");
                 cooldownManager.setCooldown(player.getUniqueId()+"-LEAPING", System.currentTimeMillis());
 
             }
@@ -209,11 +173,10 @@ public class PlayerListener implements Listener{
                 Projectile projectile = player.launchProjectile(EnderPearl.class);
                 projectile.setMetadata("enderbow", new FixedMetadataValue(getPlugin(SkyblockItems.class), true));
                 setPlayerMana(player.getUniqueId(), mana-cost);
-                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Ender Warp" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + Integer.toString(cost)+" mana)");
+                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Ender Warp" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost+" mana)");
                 cooldownManager.setCooldown(player.getUniqueId()+"-ENDER_BOW", System.currentTimeMillis());
             }
 
         }
-        return;
     }
 }
