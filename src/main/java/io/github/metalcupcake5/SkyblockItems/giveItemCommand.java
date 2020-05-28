@@ -17,25 +17,6 @@ import java.util.List;
 
 public class giveItemCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        //int level = parseInt(args[1]);
-
-        //Speedy Sword
-        //ItemStack item = new ItemStack(Material.STONE_SWORD);
-
-        //AOTE
-        /*ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-
-        ItemMeta meta = item.getItemMeta();
-        List<String> lores = new ArrayList<String>();
-        //Speedy Sword
-
-        //meta.setDisplayName(ChatColor.GOLD+"Speedy Sword");
-        //lores.add(ChatColor.WHITE+"On switching to this sword,");
-        //lores.add(ChatColor.WHITE+"receive an extra boost of speed.");
-
-        meta.setLore(lores);
-        item.setItemMeta(meta);*/
-        //item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
         if (sender instanceof Player) {
             String arguments = String.join(" ", args);
             String currentItems = "\n  -Aspect of the End\n  -Explosive Bow\n  -Ender Bow\n  -Yeti Sword\n  -Leaping Sword";
