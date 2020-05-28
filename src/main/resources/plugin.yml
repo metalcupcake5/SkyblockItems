@@ -1,0 +1,28 @@
+name: SkyblockItems
+main: io.github.metalcupcake5.SkyblockItems.SkyblockItems
+version: 0.0.1-SNAPSHOT
+author: metalcupcake5
+commands:
+  giveitem:
+    description: Gives you a special item
+    usage: /<command> [player]
+    permission: SkyblockItems.giveitem
+    permission-message: You don't have <permission>
+  setMaxMana:
+    description: Set a player's max mana
+    usage: /<command> <player> <mana> or /<command> <mana>
+    permission: SkyblockItems.setMaxMana
+    permission-message: You don't have <permission>
+
+permissions:
+  SkyblockItems.*:
+    default: false
+    children:
+      SkyblockItems.setMaxMana: true
+      SkyblockItems.giveItem: true
+  SkyblockItems.setMaxMana:
+    default: false
+  SkyblockItems.giveItem:
+    default: false
+  SkyblockItems.useItems:
+    default: true
