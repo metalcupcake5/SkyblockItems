@@ -13,6 +13,6 @@ Download/Fork+download the project and import a maven project into your IDE. Sel
 
 <h2 align="center">Credits</h2>
 
-- @LeaPhant: Feedback and support
+- [LeaPhant](http://github.com/LeaPhant): Feedback and support
 - Eljay: Math stuff
 - Shu: Feedback and ideas
