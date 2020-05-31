@@ -1,5 +1,5 @@
-# skyblock-mod
-A mod that replicates the features of some items from Hypixel Skyblock.
+# skyblock-plugin
+A plugin that replicates the features of some items from Hypixel Skyblock.
 
 # To Contribute
 Download/Fork+download the project and import a maven project into your IDE. Select the main directory with the `pom.xml` file
