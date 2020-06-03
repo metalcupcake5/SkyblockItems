@@ -16,13 +16,13 @@ commands:
 
 permissions:
   SkyblockItems.*:
-    default: false
+    default: op
     children:
       SkyblockItems.setMaxMana: true
       SkyblockItems.giveItem: true
   SkyblockItems.setMaxMana:
-    default: false
+    default: op
   SkyblockItems.giveItem:
-    default: false
+    default: op
   SkyblockItems.useItems:
     default: true

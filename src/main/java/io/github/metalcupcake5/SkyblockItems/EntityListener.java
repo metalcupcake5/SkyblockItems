@@ -54,7 +54,6 @@ public class EntityListener implements Listener {
         if(meta.getDisplayName().contains(ChatColor.DARK_PURPLE+"Explosive Bow")){
             Entity projectile = event.getProjectile();
             projectile.setMetadata("ebow", new FixedMetadataValue(SkyblockItems.getPlugin(SkyblockItems.class), true));
-            return;
         }
     }
 
@@ -65,11 +64,13 @@ public class EntityListener implements Listener {
             Block block = event.getBlock();
             block.setType(Material.AIR);
             event.setCancelled(true);
-            List<Entity> entityList = fallingBlock.getNearbyEntities(2,2,2);
-            //Location loc = fallingBlock.getLocation();
-            //loc.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(), 2, false, false);
+            List<Entity> entityList = fallingBlock.getNearbyEntities(3,3,3);
+            fallingBlock.getWorld().playEffect(fallingBlock.getLocation(), Effect.EXPLOSION_HUGE, 0);
             fallingBlock.setVelocity(new Vector(0,0,0));
             entityList.forEach(entity -> {
+                if(entity.getType() == EntityType.FALLING_BLOCK){
+                    entity.remove();
+                }
                 if(entity instanceof LivingEntity){
                     double health = ((LivingEntity) entity).getHealth();
                     ((LivingEntity) entity).damage(4000);

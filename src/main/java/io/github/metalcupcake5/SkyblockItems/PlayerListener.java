@@ -9,6 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -19,6 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static io.github.metalcupcake5.SkyblockItems.SkyblockItems.*;
@@ -36,6 +38,17 @@ public class PlayerListener implements Listener{
         Player player = event.getPlayer();
         setPlayerMana(player.getUniqueId(), 100);
         setPlayerMaxMana(player.getUniqueId(), 100);
+    }
+
+    @EventHandler
+    public void onLeave(PlayerQuitEvent event){
+        Player player = event.getPlayer();
+        UUID uuid = player.getUniqueId();
+        if(playerMana.get(uuid) == null){
+            return;
+        }
+        playerMana.remove(uuid);
+        playerMaxMana.remove(uuid);
     }
 
     @EventHandler
@@ -115,7 +128,7 @@ public class PlayerListener implements Listener{
                     block.setVelocity(calculateVelocityBlock(origin.toVector(), endPos.toVector(), 3));
                 });
                 setPlayerMana(player.getUniqueId(), mana-cost);
-                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Terrain Toss" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost+" mana)");
+                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Terrain Toss" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost +" mana)");
                 cooldownManager.setCooldown(player.getUniqueId()+"-YETI", System.currentTimeMillis());
             }else if (name.contains(ChatColor.DARK_PURPLE + "Leaping Sword")){
                 Integer cost = leaping_sword_mana;
@@ -142,7 +155,7 @@ public class PlayerListener implements Listener{
                 e.setPassenger(player);
                 e.setVelocity(calculateVelocityBlock(startBlock.toVector(), target.toVector(), 5));
                 setPlayerMana(player.getUniqueId(), mana-cost);
-                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Leap" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost+" mana)");
+                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Leap" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost +" mana)");
                 cooldownManager.setCooldown(player.getUniqueId()+"-LEAPING", System.currentTimeMillis());
 
             }
@@ -173,7 +186,7 @@ public class PlayerListener implements Listener{
                 Projectile projectile = player.launchProjectile(EnderPearl.class);
                 projectile.setMetadata("enderbow", new FixedMetadataValue(getPlugin(SkyblockItems.class), true));
                 setPlayerMana(player.getUniqueId(), mana-cost);
-                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Ender Warp" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost+" mana)");
+                player.sendMessage(ChatColor.GREEN + "Used " + ChatColor.GOLD + "Ender Warp" + ChatColor.GREEN + "!" + ChatColor.AQUA + "(" + cost +" mana)");
                 cooldownManager.setCooldown(player.getUniqueId()+"-ENDER_BOW", System.currentTimeMillis());
             }
 
