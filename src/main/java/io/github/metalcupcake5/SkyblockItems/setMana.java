@@ -22,14 +22,14 @@ public class setMana implements CommandExecutor {
                 try{
                     int mana = Integer.parseInt(args[0]);
                     setPlayerMana(player.getUniqueId(), mana);
-                    sender.sendMessage("Set your mana to " + args[1]);
+                    sender.sendMessage("Set your mana to " + args[0]);
                     return true;
                 } catch (NumberFormatException e) {
                     sender.sendMessage("Invalid mana amount!");
                     return true;
                 }
             } else {
-                sender.sendMessage("You must be a player to run this command!");
+                sender.sendMessage("You must be a player to run this command without a user argument!");
                 return false;
             }
         } else if (args.length == 2) {

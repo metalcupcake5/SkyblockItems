@@ -17,10 +17,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static io.github.metalcupcake5.SkyblockItems.SkyblockItems.*;
@@ -53,6 +50,34 @@ public class PlayerListener implements Listener{
 
     @EventHandler
     public void playerInteract(PlayerInteractEvent event) {
+        Block clickedBlock = event.getClickedBlock();
+        ArrayList<Material> materials = new ArrayList<Material>(
+                Arrays.asList(
+                        Material.CHEST,
+                        Material.ENDER_CHEST,
+                        Material.STONE_BUTTON,
+                        Material.WOOD_BUTTON,
+                        Material.WOOD_DOOR,
+                        Material.WOODEN_DOOR,
+                        Material.ACACIA_DOOR,
+                        Material.BIRCH_DOOR,
+                        Material.DARK_OAK_DOOR,
+                        Material.JUNGLE_DOOR,
+                        Material.SPRUCE_DOOR,
+                        Material.TRAP_DOOR,
+                        Material.FENCE_GATE,
+                        Material.DARK_OAK_FENCE_GATE,
+                        Material.BIRCH_FENCE_GATE,
+                        Material.SPRUCE_FENCE_GATE,
+                        Material.JUNGLE_FENCE_GATE,
+                        Material.ACACIA_FENCE_GATE
+                        ));
+        /*if(clickedBlock.getType() == Material.CHEST){
+            return;
+        }*/
+        if(clickedBlock != null && materials.contains(clickedBlock.getType())){
+            return;
+        }
         Player player = event.getPlayer();
         Action action = event.getAction();
         ItemStack item = event.getItem();
