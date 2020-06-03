@@ -25,7 +25,10 @@ permissions:
     children:
       SkyblockItems.setMaxMana: true
       SkyblockItems.giveItem: true
+      SkyblockItems.setMana: true
   SkyblockItems.setMaxMana:
+    default: op
+  SkyblockItems.setMana:
     default: op
   SkyblockItems.giveItem:
     default: op
