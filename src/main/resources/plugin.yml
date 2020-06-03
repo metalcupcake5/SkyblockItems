@@ -8,6 +8,11 @@ commands:
     usage: /<command> [player]
     permission: SkyblockItems.giveitem
     permission-message: You don't have <permission>
+  setMana:
+    description: Set a player's current mana
+    usage: /<command> <player> <mana> or /<command> <mana>
+    permission: SkyblockItems.setMana
+    permission-message: You don't have <permission>
   setMaxMana:
     description: Set a player's max mana
     usage: /<command> <player> <mana> or /<command> <mana>
