@@ -6,7 +6,7 @@
 
     <groupId>io.github.metalcupcake5</groupId>
     <artifactId>SkyblockItems</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <build>
         <plugins>
