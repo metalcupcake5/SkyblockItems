@@ -7,10 +7,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import static io.github.metalcupcake5.SkyblockItems.SkyblockItems.setPlayerMana;
-import static io.github.metalcupcake5.SkyblockItems.SkyblockItems.setPlayerMaxMana;
-import static java.lang.Integer.parseInt;
 
 public class setMana implements CommandExecutor {
+
+    private final SkyblockItems plugin;
+
+    public setMana(SkyblockItems plugin) {
+        this.plugin = plugin;
+    }
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
             if (sender instanceof Player) {

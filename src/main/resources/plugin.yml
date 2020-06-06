@@ -18,6 +18,12 @@ commands:
     usage: /<command> <player> <mana> or /<command> <mana>
     permission: SkyblockItems.setMaxMana
     permission-message: You don't have <permission>
+  config:
+    description: Configuration command
+    usage: /<command>
+    permission: SkyblockItems.config
+    permission-message: You don't have <permission>
+
 
 permissions:
   SkyblockItems.*:
@@ -26,6 +32,7 @@ permissions:
       SkyblockItems.setMaxMana: true
       SkyblockItems.giveItem: true
       SkyblockItems.setMana: true
+      SkyblockItems.config: true
   SkyblockItems.setMaxMana:
     default: op
   SkyblockItems.setMana:
@@ -34,3 +41,5 @@ permissions:
     default: op
   SkyblockItems.useItems:
     default: true
+  SkyblockItems.config:
+    default: op

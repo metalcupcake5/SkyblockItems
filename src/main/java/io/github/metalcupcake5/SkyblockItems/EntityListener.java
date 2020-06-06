@@ -6,7 +6,6 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -17,8 +16,12 @@ import org.bukkit.util.Vector;
 import java.util.List;
 
 public class EntityListener implements Listener {
+
+    private final SkyblockItems plugin;
+
     public EntityListener(SkyblockItems plugin){
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        this.plugin = plugin;
     }
 
     @EventHandler
@@ -85,6 +88,7 @@ public class EntityListener implements Listener {
         }else if(event.getEntityType() == EntityType.FALLING_BLOCK && fallingBlock.hasMetadata("leaping")) {
             Entity passenger = fallingBlock.getPassenger();
             passenger.eject();
+            //this.getLogger
             Player player = (Player) passenger;
             player.getWorld().playEffect(fallingBlock.getLocation(), Effect.LAVA_POP, 0);
             System.out.println("hi");

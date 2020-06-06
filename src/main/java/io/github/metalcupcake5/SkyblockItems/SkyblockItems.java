@@ -49,8 +49,9 @@ public final class SkyblockItems extends JavaPlugin implements Listener {
             playerMaxMana.put(player.getUniqueId(), 100);
         }
         getCommand("giveItem").setExecutor(new giveItemCommand());
-        getCommand("setMana").setExecutor(new setMana());
+        getCommand("setMana").setExecutor(new setMana(this));
         getCommand("setMaxMana").setExecutor(new setMaxMana());
+        getCommand("config").setExecutor(new configCommand(this));
         new PlayerListener(this);
         new EntityListener(this);
         if(logging) {
