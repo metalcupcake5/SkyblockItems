@@ -67,10 +67,14 @@ public class EntityListener implements Listener {
             List<Entity> entityList = fallingBlock.getNearbyEntities(3,3,3);
             fallingBlock.getWorld().playEffect(fallingBlock.getLocation(), Effect.EXPLOSION_HUGE, 0);
             fallingBlock.setVelocity(new Vector(0,0,0));
-            entityList.forEach(entity -> {
-                if(entity.getType() == EntityType.FALLING_BLOCK){
+
+            List<Entity> fallingBlockList = fallingBlock.getNearbyEntities(7,7,7);
+            fallingBlockList.forEach(entity -> {
+                if(entity.getType() == EntityType.FALLING_BLOCK && entity.hasMetadata("yeti")){
                     entity.remove();
                 }
+            });
+            entityList.forEach(entity -> {
                 if(entity instanceof LivingEntity){
                     double health = ((LivingEntity) entity).getHealth();
                     ((LivingEntity) entity).damage(4000);
@@ -82,13 +86,8 @@ public class EntityListener implements Listener {
             Entity passenger = fallingBlock.getPassenger();
             passenger.eject();
             Player player = (Player) passenger;
-            player.getWorld().playEffect(fallingBlock.getLocation(), Effect.LAVA_POP, 10);
+            player.getWorld().playEffect(fallingBlock.getLocation(), Effect.LAVA_POP, 0);
             System.out.println("hi");
         }
-    }
-
-    @EventHandler
-    public void damageByEntity(EntityDamageByEntityEvent event){
-        System.out.println(event);
     }
 }

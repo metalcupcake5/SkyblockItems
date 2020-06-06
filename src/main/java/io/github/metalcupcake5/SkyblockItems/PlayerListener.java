@@ -51,7 +51,7 @@ public class PlayerListener implements Listener{
     @EventHandler
     public void playerInteract(PlayerInteractEvent event) {
         Block clickedBlock = event.getClickedBlock();
-        ArrayList<Material> materials = new ArrayList<Material>(
+        ArrayList<Material> materials = new ArrayList<>(
                 Arrays.asList(
                         Material.CHEST,
                         Material.ENDER_CHEST,
@@ -130,9 +130,9 @@ public class PlayerListener implements Listener{
                 List<Location> locationList = new ArrayList<>();
                 List<Location> endList = new ArrayList<>();
 
-                //Get all blocks around player
-                for (int length = -2; length < 2; length++) {
-                    for (int height = -2; height < 2; height++) {
+                //Get blocks 1 layer below player, 3x3 square
+                for (int length = -1; length < 2; length++) {
+                    for (int height = -1; height < 2; height++) {
                         Location loc = startBlock.clone().add(length, 0, height);
                         Location end = b.getLocation().clone().add(length, 0, height);
                         locationList.add(loc);
@@ -140,10 +140,34 @@ public class PlayerListener implements Listener{
                     }
                 }
 
+                //The 4 outer blocks of top layer
+                locationList.add(startBlock.clone().add(0,0,2));
+                locationList.add(startBlock.clone().add(0,0,-2));
+                locationList.add(startBlock.clone().add(2,0,0));
+                locationList.add(startBlock.clone().add(-2,0,0));
+                endList.add(b.getLocation().clone().add(0, 0, 2));
+                endList.add(b.getLocation().clone().add(0, 0, -2));
+                endList.add(b.getLocation().clone().add(2, 0, 0));
+                endList.add(b.getLocation().clone().add(-2, 0, 0));
+
+                //Lower layer
+                locationList.add(startBlock.clone().add(0,-1,0));
+                locationList.add(startBlock.clone().add(1,-1,0));
+                locationList.add(startBlock.clone().add(-1,-1,0));
+                locationList.add(startBlock.clone().add(0,-1,1));
+                locationList.add(startBlock.clone().add(0,-1,-1));
+                endList.add(b.getLocation().clone().add(0, -1, 0));
+                endList.add(b.getLocation().clone().add(1, -1, 0));
+                endList.add(b.getLocation().clone().add(-1, -1, 0));
+                endList.add(b.getLocation().clone().add(0, -1, 1));
+                endList.add(b.getLocation().clone().add(0, -1, -1));
+
                 Byte blockData = 0x0;
+
+                //go through list and launch block
                 locationList.forEach(location -> {
                     Location material = location.clone().subtract(0,1,0);
-                    Location origin = location.clone().add(0,1,0);
+                    Location origin = location.clone().add(0,2,0);
                     int pos = locationList.indexOf(location);
                     Location endPos = endList.get(pos);
 
