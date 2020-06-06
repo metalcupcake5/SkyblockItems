@@ -32,10 +32,13 @@ public final class SkyblockItems extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
+        Boolean logging = this.getConfig().getBoolean("logging");
         if (setupActionbar()) {
             Bukkit.getPluginManager().registerEvents(this, this);
-            getLogger().info("Preliminary setup(ActionBar) was successful!");
-            getLogger().info("Preliminary setup complete!");
+            if(logging) {
+                getLogger().info("Preliminary setup(ActionBar) was successful!");
+                getLogger().info("Preliminary setup complete!");
+            }
         } else {
             getLogger().info("Preliminary setup(ActionBar) failed.");
             getLogger().severe("Server version is not supported by the current ActionBar versions.");
@@ -50,7 +53,9 @@ public final class SkyblockItems extends JavaPlugin implements Listener {
         getCommand("setMaxMana").setExecutor(new setMaxMana());
         new PlayerListener(this);
         new EntityListener(this);
-        getLogger().info("\n///////////\n*\n*\n*  SkyblockItems enabled!\n*\n*\n///////////");
+        if(logging) {
+            getLogger().info("\n///////////\n*\n*\n*  SkyblockItems enabled!\n*\n*\n///////////");
+        }
 
         BukkitScheduler scheduler = getServer().getScheduler();
 
@@ -79,7 +84,10 @@ public final class SkyblockItems extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        getLogger().info("\n///////////\n*\n*\n*  SkyblockItems disabled!\n*\n*\n///////////");
+        Boolean logging = this.getConfig().getBoolean("logging");
+        if(logging) {
+            getLogger().info("\n///////////\n*\n*\n*  SkyblockItems disabled!\n*\n*\n///////////");
+        }
     }
 
     private static double distanceSquared(Vector from, Vector to) {
@@ -190,8 +198,10 @@ public final class SkyblockItems extends JavaPlugin implements Listener {
         } catch (ArrayIndexOutOfBoundsException whatVersionAreYouUsingException) {
             return false;
         }
-
-        getLogger().info("Server version is " + version);
+        Boolean logging = this.getConfig().getBoolean("logging");
+        if(logging) {
+            getLogger().info("Server version is " + version);
+        }
 
         if (version.equals("v1_8_R3")) {
             //server is running 1.8-1.8.1 so we need to use the 1.8 R1 NMS class
