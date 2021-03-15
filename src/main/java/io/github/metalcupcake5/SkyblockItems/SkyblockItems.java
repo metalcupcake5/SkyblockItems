@@ -2,8 +2,13 @@ package io.github.metalcupcake5.SkyblockItems;
 
 import io.github.metalcupcake5.SkyblockItems.actionbar.Actionbar;
 import io.github.metalcupcake5.SkyblockItems.actionbar.Actionbar_1_8_R3;
+import io.github.metalcupcake5.SkyblockItems.commands.configCommand;
+import io.github.metalcupcake5.SkyblockItems.commands.giveItemCommand;
+import io.github.metalcupcake5.SkyblockItems.commands.setMana;
+import io.github.metalcupcake5.SkyblockItems.commands.setMaxMana;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,13 +23,16 @@ public final class SkyblockItems extends JavaPlugin implements Listener {
     public static final Integer aote_mana = 50;
     public static final Integer ender_bow_mana = 50;
     public static final Integer leaping_sword_mana = 50;
+    public static final Integer ember_rod_mana = 150;
+    public static final Integer ink_wand_mana = 60;
 
-    /*TODO
-     *   List of things needed:
-     *       -Make AOTE give +50 speed(3 seconds)
+    /*
+     *   todo list:
+     *       - Fix leaping sword(no idea how)
      *
      * DONE
-     *       -Make ender bow deal 10% of current health.
+     *       - Make ender bow deal 10% of current health.
+     *       - Make AOTE give +50 speed(3 seconds)
      */
 
     public static HashMap<UUID, Integer> playerMana = new HashMap<UUID, Integer>();
@@ -157,22 +165,31 @@ public final class SkyblockItems extends JavaPlugin implements Listener {
         return new Vector(vx, vy, vz);
     }
 
-    public static Object checkSame(List list){
-        for(int i = 1; i < list.size(); i++){
-            if(list.get(i-1) != list.get(i)){
-                class Return{
-                    Object type = null;
-                    boolean same = false;
-                }
-                return false;
-            }
-        }
-        class Return{
-            Object type = list.get(1);
-            boolean same = true;
+    static final class SameClass {
+        private final Material material;
+        private final boolean same;
+
+        public SameClass(Material material, boolean same) {
+            this.material = material;
+            this.same = same;
         }
 
-        return new Return();
+        public Material getMaterial() {
+            return material;
+        }
+
+        public boolean getSame() {
+            return same;
+        }
+    }
+
+    public static SameClass checkSame(List list){
+        for(int i = 1; i < list.size(); i++){
+            if(list.get(i-1) != list.get(i)){
+                return new SameClass(null, false);
+            }
+        }
+        return new SameClass((Material)list.get(1), true);
     }
 
     public static void setPlayerMana(UUID uuid, Integer integer){

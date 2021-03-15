@@ -1,6 +1,6 @@
-name: SkyblockItems
+name: ${project.name}
 main: io.github.metalcupcake5.SkyblockItems.SkyblockItems
-version: 0.0.1-SNAPSHOT
+version: ${project.version}
 author: metalcupcake5
 commands:
   giveitem:

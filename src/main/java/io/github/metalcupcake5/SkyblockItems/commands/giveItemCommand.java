@@ -1,4 +1,4 @@
-package io.github.metalcupcake5.SkyblockItems;
+package io.github.metalcupcake5.SkyblockItems.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,11 +19,11 @@ public class giveItemCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             String arguments = String.join(" ", args);
-            String currentItems = "\n  -Aspect of the End\n  -Explosive Bow\n  -Ender Bow\n  -Yeti Sword\n  -Leaping Sword";
+            String currentItems = "\n  -Aspect of the End\n  -Explosive Bow\n  -Ender Bow\n  -Yeti Sword\n  -Leaping Sword\n  -Ember Rod\n  -Golem Sword\n  -Ink Wand\n  -Grappling Hook";
             if(args.length < 1){
                 sender.sendMessage("Invalid item!\nCurrent items:"+currentItems);
                 return true;
-            }else if (arguments.equalsIgnoreCase("ebow") || arguments.equalsIgnoreCase("explosive") || arguments.equalsIgnoreCase("explosive bow") || arguments.equalsIgnoreCase("Explosive Bow")) {
+            } else if (arguments.equalsIgnoreCase("ebow") || arguments.equalsIgnoreCase("explosive") || arguments.equalsIgnoreCase("explosive bow")) {
                 Player player = (Player) sender;
                 PlayerInventory inventory = player.getInventory();
 
@@ -47,7 +47,7 @@ public class giveItemCommand implements CommandExecutor {
                 inventory.addItem(item);
                 sender.sendMessage("You were given an explosive bow");
                 return true;
-            }else if(arguments.equalsIgnoreCase("aote") || arguments.equalsIgnoreCase("AOTE") || arguments.equalsIgnoreCase("Aspect of the End") || arguments.equalsIgnoreCase("aspect of the end")){
+            }else if(arguments.equalsIgnoreCase("aote") || arguments.equalsIgnoreCase("Aspect of the End")){
                 Player player = (Player) sender;
                 PlayerInventory inventory = player.getInventory();
 
@@ -71,7 +71,7 @@ public class giveItemCommand implements CommandExecutor {
                 inventory.addItem(item);
                 sender.sendMessage("You were given an Aspect of the End");
                 return true;
-            }else if(arguments.equalsIgnoreCase("ender bow") || arguments.equalsIgnoreCase("Ender Bow") || arguments.equalsIgnoreCase("ender Bow") || arguments.equalsIgnoreCase("Ender bow")){
+            }else if(arguments.equalsIgnoreCase("ender bow") || arguments.equalsIgnoreCase("Ender Bow")){
                 Player player = (Player) sender;
                 PlayerInventory inventory = player.getInventory();
 
@@ -98,7 +98,7 @@ public class giveItemCommand implements CommandExecutor {
                 inventory.addItem(item);
                 sender.sendMessage("You were given an Ender Bow");
                 return true;
-            }else if(arguments.equalsIgnoreCase("yeti") || arguments.equalsIgnoreCase("Yeti Sword") || arguments.equalsIgnoreCase("yeti sword") || arguments.equalsIgnoreCase("Yeti sword")){
+            } else if(arguments.equalsIgnoreCase("yeti") || arguments.equalsIgnoreCase("Yeti Sword")){
                 Player player = (Player) sender;
                 PlayerInventory inventory = player.getInventory();
 
@@ -123,7 +123,7 @@ public class giveItemCommand implements CommandExecutor {
                 inventory.addItem(item);
                 sender.sendMessage("You were given a Yeti Sword");
                 return true;
-            } else if(arguments.equalsIgnoreCase("leaping") || arguments.equalsIgnoreCase("Leaping Sword") || arguments.equalsIgnoreCase("leaping sword") || arguments.equalsIgnoreCase("Leaping sword")){
+            } else if(arguments.equalsIgnoreCase("leaping") || arguments.equalsIgnoreCase("Leaping Sword")) {
                 Player player = (Player) sender;
                 PlayerInventory inventory = player.getInventory();
 
@@ -151,15 +151,132 @@ public class giveItemCommand implements CommandExecutor {
                 inventory.addItem(item);
                 sender.sendMessage("You were given a Leaping Sword");
                 return true;
-            }else{
+            } else if(arguments.equalsIgnoreCase("ember") || arguments.equalsIgnoreCase("ember rod")){
+                Player player = (Player) sender;
+                PlayerInventory inventory = player.getInventory();
+
+                ItemStack item = new ItemStack(Material.BLAZE_ROD);
+                ItemMeta meta = item.getItemMeta();
+                List<String> lores = new ArrayList<>();
+
+                meta.setDisplayName(ChatColor.DARK_PURPLE + "Ember Rod");
+                lores.add(ChatColor.GOLD + "Item Ability: Fire Blast " + ChatColor.YELLOW + ChatColor.BOLD + "RIGHT CLICK");
+                lores.add(ChatColor.GRAY + "Shoot 3 Fireballs in rapid");
+                lores.add(ChatColor.GRAY + "succession in front of you!");
+                lores.add(ChatColor.DARK_GRAY + "Mana Cost: " + ChatColor.DARK_AQUA + "150");
+                lores.add(ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + "30s");
+                lores.add(null);
+                lores.add(ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + ChatColor.BOLD + "EPIC SWORD");
+                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+                meta.setLore(lores);
+                item.setItemMeta(meta);
+
+                inventory.addItem(item);
+                sender.sendMessage("You were given an Ember Rod");
+                return true;
+            }else if(arguments.equalsIgnoreCase("golem") || arguments.equalsIgnoreCase("golem sword")){
+                Player player = (Player) sender;
+                PlayerInventory inventory = player.getInventory();
+
+                ItemStack item = new ItemStack(Material.IRON_SWORD);
+                ItemMeta meta = item.getItemMeta();
+                List<String> lores = new ArrayList<>();
+
+                meta.setDisplayName(ChatColor.BLUE + "Golem Sword");
+                lores.add(ChatColor.GOLD + "Item Ability: Iron Punch " + ChatColor.YELLOW + ChatColor.BOLD + "RIGHT CLICK");
+                lores.add(ChatColor.GRAY + "Punch the ground, damaging");
+                lores.add(ChatColor.GRAY + "enemies in a hexagon around you");
+                lores.add(ChatColor.GRAY + "for" + ChatColor.GREEN + " 250" + ChatColor.GRAY + " base Magic Damage");
+                lores.add(ChatColor.DARK_GRAY + "Mana Cost: " + ChatColor.DARK_AQUA + "70");
+                lores.add(ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + "3s");
+                lores.add(null);
+                lores.add(ChatColor.BOLD + "" + ChatColor.BLUE + ChatColor.BOLD + "RARE SWORD");
+                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+                meta.setLore(lores);
+                item.setItemMeta(meta);
+
+                inventory.addItem(item);
+                sender.sendMessage("You were given a Golem Sword");
+                return true;
+            }else if(arguments.equalsIgnoreCase("ink") || arguments.equalsIgnoreCase("ink wand")){
+                Player player = (Player) sender;
+                PlayerInventory inventory = player.getInventory();
+
+                ItemStack item = new ItemStack(Material.STICK);
+                ItemMeta meta = item.getItemMeta();
+                List<String> lores = new ArrayList<>();
+
+                meta.setDisplayName(ChatColor.DARK_PURPLE + "Ink Wand");
+                lores.add(ChatColor.GOLD + "Item Ability: Ink Bomb " + ChatColor.YELLOW + ChatColor.BOLD + "RIGHT CLICK");
+                lores.add(ChatColor.GRAY + "Shoot an ink bomb in front of");
+                lores.add(ChatColor.GRAY + "you dealing" + ChatColor.GREEN + " 50,000" + ChatColor.GRAY + " damage");
+                lores.add(ChatColor.GRAY + "and giving blindness!");
+                lores.add(ChatColor.DARK_GRAY + "Mana Cost: " + ChatColor.DARK_AQUA + "60");
+                lores.add(ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + "30s");
+                lores.add(null);
+                lores.add(ChatColor.BOLD + "" + ChatColor.DARK_PURPLE + ChatColor.BOLD + "EPIC SWORD");
+                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+                meta.setLore(lores);
+                item.setItemMeta(meta);
+
+                inventory.addItem(item);
+                sender.sendMessage("You were given an Ink Wand");
+                return true;
+            }else if(arguments.equalsIgnoreCase("grapple") || arguments.equalsIgnoreCase("grappling hook")){
+                Player player = (Player) sender;
+                PlayerInventory inventory = player.getInventory();
+
+                ItemStack item = new ItemStack(Material.FISHING_ROD);
+                ItemMeta meta = item.getItemMeta();
+                List<String> lores = new ArrayList<>();
+
+                meta.setDisplayName(ChatColor.GREEN + "Grappling Hook");
+                lores.add(ChatColor.GRAY + "Travel around in style using");
+                lores.add(ChatColor.GRAY + "this Grappling Hook");
+                lores.add(ChatColor.DARK_GRAY + "2 second cooldown");
+                lores.add(null);
+                lores.add(ChatColor.BOLD + "" + ChatColor.GREEN + ChatColor.BOLD + "UNCOMMON");
+                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+                meta.setLore(lores);
+                item.setItemMeta(meta);
+
+                inventory.addItem(item);
+                sender.sendMessage("You were given a grappling hook");
+                return true;
+            } else if(arguments.equalsIgnoreCase("Ember Bow")){
+                Player player = (Player) sender;
+                PlayerInventory inventory = player.getInventory();
+
+                ItemStack item = new ItemStack(Material.BOW);
+                ItemMeta meta = item.getItemMeta();
+                List<String> lores = new ArrayList<>();
+
+                meta.setDisplayName(ChatColor.GREEN + "Ember Bow");
+                lores.add(ChatColor.GRAY + "its an ember bow");
+                lores.add(ChatColor.GRAY + "ok");
+                lores.add(ChatColor.GOLD + "Item Passive: Ignition");
+                lores.add(ChatColor.GRAY + "Set the first target hit on");
+                lores.add(ChatColor.GRAY + "fire for 2 seconds.");
+                lores.add(ChatColor.GRAY + "Hitting a target that is already on fire");
+                lores.add(ChatColor.GRAY + "will restore 1% of your missing health back.");
+                lores.add(null);
+                lores.add(ChatColor.BOLD + "" + ChatColor.GRAY + ChatColor.BOLD + "SOME RARITY");
+                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+                meta.setLore(lores);
+                item.setItemMeta(meta);
+
+                inventory.addItem(item);
+                sender.sendMessage("You were given an ember bow");
+                return true;
+            } else{
                 sender.sendMessage("Invalid item!\nCurrent items:"+currentItems);
                 return true;
             }
-            /*Player player = (Player) sender;
-            PlayerInventory inventory = player.getInventory();
-            inventory.addItem(item);
-            sender.sendMessage("Given a "+item.getType());
-            return true;*/
         } else {
             sender.sendMessage("Only players can use this command!");
             return false;

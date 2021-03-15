@@ -6,6 +6,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -33,12 +34,12 @@ public class EntityListener implements Listener {
             world.createExplosion(location.getBlockX(), location.getBlockY(), location.getBlockZ(), 3, false, false);
             projectile.remove();
         }
-        if(projectile.hasMetadata("enderbow")){
-            List<Entity> entityList = projectile.getNearbyEntities(8,8,8);
+        if(projectile.hasMetadata("enderbow")) {
+            List<Entity> entityList = projectile.getNearbyEntities(8, 8, 8);
             entityList.forEach(entity -> {
-                if(entity instanceof LivingEntity){
+                if (entity instanceof LivingEntity) {
                     double health = ((LivingEntity) entity).getHealth();
-                    ((LivingEntity) entity).damage(health/10);
+                    ((LivingEntity) entity).damage(health / 10);
                 }
             });
         }
@@ -51,12 +52,16 @@ public class EntityListener implements Listener {
             return;
         }
         ItemMeta meta = bow.getItemMeta();
-        if(!meta.hasDisplayName()){
+        if(!meta.hasDisplayName()){ 
             return;
         }
         if(meta.getDisplayName().contains(ChatColor.DARK_PURPLE+"Explosive Bow")){
             Entity projectile = event.getProjectile();
             projectile.setMetadata("ebow", new FixedMetadataValue(SkyblockItems.getPlugin(SkyblockItems.class), true));
+        }
+        if(meta.getDisplayName().contains((ChatColor.GREEN+"Ember Bow"))){
+            Entity projectile = event.getProjectile();
+            projectile.setMetadata("ember", new FixedMetadataValue(SkyblockItems.getPlugin(SkyblockItems.class), true));
         }
     }
 
@@ -88,10 +93,34 @@ public class EntityListener implements Listener {
         }else if(event.getEntityType() == EntityType.FALLING_BLOCK && fallingBlock.hasMetadata("leaping")) {
             Entity passenger = fallingBlock.getPassenger();
             passenger.eject();
-            //this.getLogger
+            this.plugin.getLogger().info("ejected person");
             Player player = (Player) passenger;
             player.getWorld().playEffect(fallingBlock.getLocation(), Effect.LAVA_POP, 0);
             System.out.println("hi");
+        }
+    }
+    
+    @EventHandler
+    public void entityDamageEntity(EntityDamageByEntityEvent event){
+        if(event.getDamager() instanceof Projectile) {
+            Projectile proj = (Projectile) event.getDamager();
+            if (proj.hasMetadata("ember")) {
+                if (proj.getShooter() instanceof Player) {
+                    Player player = (Player) proj.getShooter();
+                    Entity entity = event.getEntity();
+                    if (entity.getFireTicks() > 0) {
+                        Double missingHealth = player.getMaxHealth() - player.getHealth();
+                        Double heal = 0.01 * missingHealth;
+                        if(heal > 0) {
+                            player.setHealth(player.getHealth() + heal);
+                            player.sendMessage(ChatColor.GOLD + "Ignition" + ChatColor.GRAY + ": Healed you for " + ChatColor.RED + heal + ChatColor.GRAY + "health!");
+                        }
+                    } else {
+                        entity.setFireTicks(40);
+                    }
+                }
+
+            }
         }
     }
 }

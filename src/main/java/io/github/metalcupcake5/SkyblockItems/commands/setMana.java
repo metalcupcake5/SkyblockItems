@@ -1,5 +1,6 @@
-package io.github.metalcupcake5.SkyblockItems;
+package io.github.metalcupcake5.SkyblockItems.commands;
 
+import io.github.metalcupcake5.SkyblockItems.SkyblockItems;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

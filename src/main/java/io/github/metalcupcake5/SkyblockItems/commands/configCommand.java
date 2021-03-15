@@ -1,5 +1,6 @@
-package io.github.metalcupcake5.SkyblockItems;
+package io.github.metalcupcake5.SkyblockItems.commands;
 
+import io.github.metalcupcake5.SkyblockItems.SkyblockItems;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,12 +19,11 @@ public class configCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length > 0){
             sender.sendMessage("hello");
-            return true;
         }else{
             Set<String> keys = this.plugin.getConfig().getKeys(false);
             String list = String.join("\n", keys);
             sender.sendMessage("Valid keys:\n" + list);
-            return true;
         }
+        return true;
     }
 }
